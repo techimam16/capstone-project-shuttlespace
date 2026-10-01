@@ -1,0 +1,613 @@
+{
+  "info": {
+    "_postman_id": "8bfa8607-a295-4273-9d03-f5731f09e76c",
+    "name": "Pengujian API Proyek ShuttleSpace",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57277230",
+    "_collection_link": "https://go.postman.co/collection/57277230-8bfa8607-a295-4273-9d03-f5731f09e76c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "API Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"putracust\",\r\n    \"password\": \"pw098\",\r\n    \"namaLengkap\": \"Putra Cust\",\r\n    \"noHp\": \"080987654321\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Endpoint untuk register user(penyewa) baru"
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"admin_shuttlespace\",\r\n    \"password\": \"adminpw123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Endpoint untuk login admin dan user(penyewa).\n\nUser: Gunakan token untuk akses khusus user\n\nAdmin: Gunakan token untuk akses khusus admin"
+          },
+          "response": []
+        },
+        {
+          "name": "No Hp Tidak Valid - Ditolak",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"username\": \"testvalid\", \"password\": \"test123\", \"namaLengkap\": \"Test\", \"noHp\": \"123\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API Lapangan",
+      "item": [
+        {
+          "name": "Get All Lapangan",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/lapangan",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "lapangan"
+              ]
+            },
+            "description": "Endpoint untuk melihat semua data lapangan yang ada"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Lapangan",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nama\": \"Lapangan 2\",\r\n    \"hargaPerJam\": 50000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/lapangan",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "lapangan"
+              ]
+            },
+            "description": "Endpoint untuk menambahkan slot lapangan.\n\nHarus menggunakan token admin."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Lapangan",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nama\": \"Lapangan merah 2\",\r\n    \"hargaPerJam\": 65000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/lapangan/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "lapangan",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Endpoint untuk update data lapangan\n\nHarus pakai token admin agar bisa melakukan update\n\nuntuk id lapangannya, ketik di url endpoint"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Lapangan",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nama\": \"Lapangan merah 2\",\r\n    \"hargaPerJam\": 65000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/lapangan/:id",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "lapangan",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Endpoint untuk hapus data lapangan\n\nHarus pakai token admin agar bisa melakukan delete\n\nuntuk id lapangannya, ketik di url endpoint"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API Booking",
+      "item": [
+        {
+          "name": "Get Availability",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            },
+            "description": "Endpoint untuk cek ketersediaan slot\n\nlapangan id dan tanggal nya yang ada di url bisa diganti sesuai id lapangan yang ada"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \r\n    \"lapanganId\": 1, \r\n    \"tanggal\": \"2026-10-01\",\r\n    \"jamMulai\": \"19:00\",\r\n    \"jamSelesai\": \"20:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/booking",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "booking"
+              ]
+            },
+            "description": "Endpoint untuk melakukan booking lapangan\n\nHarus pakai token user yang telah login"
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Booking",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/booking/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "booking",
+                "me"
+              ]
+            },
+            "description": "Endpoint untuk melihat riwayat booking milik user\n\nharus pakai token si user itu sendiri"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Bookings (Admin)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/booking",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "booking"
+              ]
+            },
+            "description": "Endpoint untuk melihat semua riwayat booking\n\nharus pakai token admin"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Booking Status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"confirmed\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/booking/:id/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "booking",
+                ":id",
+                "status"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": ""
+                }
+              ]
+            },
+            "description": "Endpoint untuk update status booking\n\nHarus pakai token admin"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking(Admin) - Ditolak",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \r\n    \"lapanganId\": 1, \r\n    \"tanggal\": \"2026-10-01\",\r\n    \"jamMulai\": \"08:00\",\r\n    \"jamSelesai\": \"10:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/booking",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking (Waktu sudah lewat) - Ditolak",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \r\n    \"lapanganId\": 1, \r\n    \"tanggal\": \"2026-10-01\",\r\n    \"jamMulai\": \"08:00\",\r\n    \"jamSelesai\": \"10:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/booking",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Booking (Overlap Multi Jam) - Ditolak",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \r\n    \"lapanganId\": 1, \r\n    \"tanggal\": \"2026-10-01\",\r\n    \"jamMulai\": \"18:00\",\r\n    \"jamSelesai\": \"20:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/booking",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API User",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{token_admin}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "user"
+              ]
+            },
+            "description": "Endpoint untuk menampilkan semua user\n\nHarus menggunakan token admin"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_secret_08vg",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_02zc",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0dp6",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_1bzx",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0yzw",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0e9p",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_13zv",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_13pm",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_10sh",
+      "secret": true
+    }
+  ]
+}
